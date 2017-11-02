@@ -6,5 +6,5 @@ setup(name='abnormal_activations',
       url='https://github.com/UrbanoFonseca/abnormal_activations',
       author='UrbanoFonseca',
       license='MIT',
-      packages=['abnornmal_activations'],
+      packages=['abnormal_activations'],
       zip_safe=False)
