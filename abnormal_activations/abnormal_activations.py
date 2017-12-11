@@ -1,4 +1,5 @@
 import numpy as np
+from keras import backend as K
 
 class ActivationFunctions():
 
@@ -19,27 +20,27 @@ class ActivationFunctions():
 		# The alpha parameter is supposed to be a small linear term to avoid
 		# flat spots.
 		# f(x) = 1.7159 * tanh(2/3*x) + a*x
-		return (1.7159 * np.tanh(2 * x / 3))
+		return (1.7159 * K.tanh(2 * x / 3))
 
 
 	def ReSech(x):
 		# As presented in 'A novel activation for multilayer feed-forward neural networks'
 		# from Njikam, A.B.S. and Zhao, H.
 		# where sech is the hyperbolic secant
-		sech_x = 1 / np.cosh(x)
+		sech_x = 1 / K.cosh(x)
 		return x * sech_x
 
 
 	def scaled_sigmoid(x):
 		# As presented in 'Revise Saturated Activation Functions'
 		# by Xu, B, and Huang, R. and Li, M.
-		return 4 / ( 1 + np.exp(-x)) - 2
+		return 4 / ( 1 + K.exp(-x)) - 2
 
 
 	def penalized_tanh(x, alpha=0.25):
 		# As presented in 'Revise Saturated Activation Functions'
 		# by Xu, B, and Huang, R. and Li, M.
-		return np.tanh(x) if x > 0 else alpha * np.tanh(x)
+		return K.tanh(x) if x > 0 else alpha * K.tanh(x)
 
 	
 	def trunc_sin(x):
@@ -51,7 +52,7 @@ class ActivationFunctions():
 		elif x > np.pi/2:
 			return 1
 		else:
-			return np.sin(x)
+			return K.sin(x)
 
 	def sin(x):
 		return np.sin(x)
