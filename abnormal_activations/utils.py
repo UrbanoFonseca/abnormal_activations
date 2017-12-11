@@ -1,3 +1,5 @@
+from keras.layers import Activation
+
 class NameActivation(Activation):
 	# This classes expands the vectorized functions to have a name that can
 	# be propered passed and saved on the ModelCheckpoint callback.
