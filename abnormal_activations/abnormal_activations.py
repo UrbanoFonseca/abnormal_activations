@@ -1,3 +1,5 @@
+import numpy as np
+
 class ActivationFunctions():
 
 	def alpha_linear(x, alpha=0.5):
