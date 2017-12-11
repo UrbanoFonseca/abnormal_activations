@@ -1,5 +1,16 @@
 class ActivationFunctions():
 
+	def alpha_linear(x, alpha=0.5):
+		# The linear function Y = A * X
+		return	alpha * x
+
+
+	def step(x, threshold=0.0):
+		# The step function returns 0 for x < threshold
+		# and 1 otherwise.
+		return 1 if x > threshold else 0
+
+
 	def LeCunSigmoid(x, alpha=0.01):
 		# As presented in the 'Generalization and Network Design Strategies'
 		# from Y. LeCun
