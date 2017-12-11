@@ -20,14 +20,15 @@ class ActivationFunctions():
 		# The alpha parameter is supposed to be a small linear term to avoid
 		# flat spots.
 		# f(x) = 1.7159 * tanh(2/3*x) + a*x
-		return (1.7159 * K.tanh(2 * x / 3))
+		return (1.7159 * K.tanh(2 * x / 3) + alpha * x)
 
 
 	def ReSech(x):
 		# As presented in 'A novel activation for multilayer feed-forward neural networks'
 		# from Njikam, A.B.S. and Zhao, H.
 		# where sech is the hyperbolic secant
-		sech_x = 1 / K.cosh(x)
+		cosh = (K.exp(x)+K.exp(-x))/2
+		sech_x = 1 / cosh
 		return x * sech_x
 
 
@@ -40,19 +41,16 @@ class ActivationFunctions():
 	def penalized_tanh(x, alpha=0.25):
 		# As presented in 'Revise Saturated Activation Functions'
 		# by Xu, B, and Huang, R. and Li, M.
-		return K.tanh(x) if x > 0 else alpha * K.tanh(x)
+		return K.switch(x > K.variable(0), K.tanh(x), alpha * K.tanh(x))
 
 	
 	def trunc_sin(x):
 		# Based on the 'Taming the Waves:
 		# Sine as Activation Function in Deep Neural Networks'
 		# from Parascandolo, G. and Huttunen, H. and Virtanen, T.
-		if x < -np.pi/2:
-			return 0
-		elif x > np.pi/2:
-			return 1
-		else:
-			return K.sin(x)
+		pi = 3.14159265359
+		return (K.switch(x < K.constant(-pi/2), K.constant(0), K.switch(x > K.constant(pi/2), K.constant(1), K.sin(x))))
+
 
 	def sin(x):
-		return np.sin(x)
+		return K.sin(x)
